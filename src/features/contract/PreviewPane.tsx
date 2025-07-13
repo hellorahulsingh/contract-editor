@@ -4,9 +4,15 @@ import { useAppSelector } from "../../hooks";
 export default function PreviewPane() {
   const { topics } = useAppSelector((state) => state.contract);
 
+  const activeTopics = topics.filter((t) => t.isActive);
+
   return (
     <div className="space-y-4">
-      {topics.map((topic) => (
+      {activeTopics.length === 0 && (
+        <p className="text-sm text-gray-400 italic">No sections selected</p>
+      )}
+
+      {activeTopics.map((topic) => (
         <div key={topic.id} className="border p-2 rounded bg-gray-50">
           <h4 className="font-semibold">{topic.title}</h4>
           <p className="text-sm text-gray-700">{topic.description}</p>
